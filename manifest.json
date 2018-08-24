@@ -1,21 +1,43 @@
 {
   "manifest_version": 2,
   "name": "オープンレックキャプチャー",
-  "description": "openrecで映像をキャプチャーして保存する",
-  "version": "1.4",
+  "description": "openrecで映像をキャプチャーして 保存/ツイート する",
+  "version": "1.5",
 
   "content_scripts": [
       {
           "matches":  ["https://www.openrec.tv/live/*"],
-          "js": ["jquery-3.2.1.min.js","contentscript.js"],
+          "js": ["jquery-3.2.1.min.js","oauth/oauth_t.js","oauth/sha1.js","oauth/oauth.js","contentscript.js"],
           "css":["style.css"]
       }
   ],
+
+  "background": {
+    "page": "background.html",
+    "persistent": false
+  },
+
+  "page_action":{
+    "default_icon":{
+      "16": "icon16.png"
+    },
+    "default_title": "画像をツイート"
+  },
+
+  "externally_connectable": {
+    "matches": ["https://oauth.io/*"]
+},
+
+"content_security_policy":"script-src 'self' https://api.twitter.com; object-src 'self'",
 
   "icons":{
         "16": "icon16.png",
         "48": "icon48.png",
         "128": "icon2.png"
 
-  }
+  },
+
+  "permissions": [
+    "tabs"
+  ]
 }
